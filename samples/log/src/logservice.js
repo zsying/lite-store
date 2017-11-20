@@ -1,4 +1,4 @@
-import { registryService,pushChange } from 'uglystore'
+import { registryService,pushChange } from 'lite-store'
 
 let ds = [];
 let actions = {

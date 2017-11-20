@@ -81,8 +81,12 @@ export function withStore(OldComponent, dataType) {
 			});
 		}
 		render() {
-			// let { children, ...passThroughProps } = this.props;
-			return <OldComponent ds={this.state.ds} actions={store.getActions(dataType)} {...this.props} />
+			let { children, ...passThroughProps } = this.props;
+			return (
+				<OldComponent ds={this.state.ds} actions={store.getActions(dataType)} {...passThroughProps}>
+					{children}	
+				</OldComponent>
+			)
 		}
 	}
 }

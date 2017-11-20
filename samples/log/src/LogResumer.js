@@ -1,12 +1,13 @@
 import React from 'react'
+import {withStore} from 'lite-store'
 
-const LogResumer = () => (
+const LogResumer = ({ds}) => (
     <div>
         <h5>log list</h5>
         <ul>
-            <il>a log list here: </il>
+            {ds.map((value) => <il> {value} </il>)}            
         </ul>
     </div>
 )
     
-export default LogResumer
+export default withStore(LogResumer, '_log')

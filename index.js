@@ -5,4 +5,4 @@ export {
     pushChange,
     callAction
 }
-from 'store';
+from './store';
