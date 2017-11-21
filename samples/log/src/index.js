@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import App from './components/App';
 import registerServiceWorker from './registerServiceWorker';
-import { regLogService } from './logservice';
-import register from './registerServiceWorker';
+import { regLogService } from './services/logservice';
+// import register from './registerServiceWorker';
 
 regLogService();
 

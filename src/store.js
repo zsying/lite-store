@@ -6,12 +6,12 @@ import React, {
 //    [dataType]: []
 //    [dataType]: {}
 //    [dataType]:  "string/int/bool..."
-let globalDataset = {
+const globalDataset = {
 	// [dataType]: ,
 };
 
 // all listeners
-let globalListeners = {
+const globalListeners = {
 	// [dataType]: [],  
 	pushChange: (dataType) => {
 		globalListeners[dataType].forEach(item => item());
@@ -19,7 +19,7 @@ let globalListeners = {
 };
 
 // actions
-let globalActions = {
+const globalActions = {
 	// [dataType]: {
 	// 	acton1: (param) => {
 	//	sosomething
@@ -30,28 +30,26 @@ let globalActions = {
 
 const store = {
 	// return 'dataType' store
-	getData: function(dataType) {
-		return globalDataset[dataType]();
-	},
+	getData: (dataType) => globalDataset[dataType](),
 
-	getActions: function (dataType) {
-		return globalActions[dataType];
-	},
-	callAction: function (dataType, method, ...param) {
-		return globalActions[dataType][method](...param);
-	},
-	addListener: function(dataType, actionFunc) {
-		let list = globalListeners[dataType];
-		let index = list.indexOf(actionFunc);
-		if(index === -1) {
+	getActions: (dataType) => globalActions[dataType],
+
+	callAction: (dataType, method, ...param) =>
+		globalActions[dataType][method](...param),
+
+	addListener: (dataType, actionFunc) => {
+		const list = globalListeners[dataType];
+		const index = list.indexOf(actionFunc);
+		if (index === -1) {
 			return list.push(actionFunc);
 		}
 		return index;
 	},
-	removeListener: function(dataType, actionFunc) {
-		let list = globalListeners[dataType];
-		let index = list.indexOf(actionFunc);
-		if(index > -1) {
+
+	removeListener: (dataType, actionFunc) => {
+		const list = globalListeners[dataType];
+		const index = list.indexOf(actionFunc);
+		if (index > -1) {
 			list.splice(index, 1);
 		}
 	},
@@ -81,24 +79,45 @@ export function withStore(OldComponent, dataType) {
 			});
 		}
 		render() {
-			let { children, ...passThroughProps } = this.props;
-			return (
-				<OldComponent ds={this.state.ds} actions={store.getActions(dataType)} {...passThroughProps}>
-					{children}	
-				</OldComponent>
-			)
+			const {
+				children,  // eslint-disable-line react/prop-types
+				...passThroughProps
+			} = this.props;
+			return React.createElement(OldComponent, {
+				ds: this.state.ds,
+				actions: store.getActions(dataType),
+				...passThroughProps
+			}, children)
+			// return (
+			// 	<OldComponent ds={this.state.ds} actions={store.getActions(dataType)} {...passThroughProps}>
+			// 		{children}	
+			// 	</OldComponent>
+			// )
 		}
 	}
 }
 
 export function withActions(OldComponent, dataType) {
-	let WrapComponent = (props) => <OldComponent actions={store.getActions(dataType)} {...props} />;
+	const WrapComponent = ({ children, ...passThroughProps }) =>   // eslint-disable-line react/prop-types
+		// const { children, ...passThroughProps } = props;
+		React.createElement(
+			OldComponent,
+			{ actions: store.getActions(dataType, ...passThroughProps) },
+			children
+		);	
+	// 	<OldComponent actions={
+	// 	store.getActions(dataType)
+	// } { ...props
+	// }
+	// />;
 	return WrapComponent;
 }
 
 // dsfunc :   ()=> ds ; return ds by function call.
 export function registryService(dataType, dsfunc, actions) {
-if(globalDataset[dataType] !== undefined || globalActions[dataType] !== undefined || globalListeners[dataType] !== undefined) {
+	if (globalDataset[dataType] !== undefined ||
+		globalActions[dataType] !== undefined ||
+		globalListeners[dataType] !== undefined) {
 		throw new Error(`${dataType} had been register.`);
 	}
 
