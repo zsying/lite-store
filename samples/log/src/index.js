@@ -8,5 +8,5 @@ import { regLogService } from './services/logservice';
 
 regLogService();
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root')); // eslint-disable-line react/jsx-filename-extension
 registerServiceWorker();

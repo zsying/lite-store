@@ -1,6 +1,7 @@
 import React, {
 	Component
 } from 'react'
+import PropTypes from 'prop-types'
 
 // data stores
 //    [dataType]: []
@@ -60,6 +61,10 @@ export function withStore(OldComponent, dataType) {
 		throw new Error(`dataType shouldn't be array in withStor`);
 	}
 	return class WrapComponent extends Component {
+		static propTypes = {
+			children: PropTypes.node.isRequired,
+		};
+
 		constructor(props) {
 			super(props);
 			this.state = {
@@ -80,7 +85,7 @@ export function withStore(OldComponent, dataType) {
 		}
 		render() {
 			const {
-				children,  // eslint-disable-line react/prop-types
+				children,
 				...passThroughProps
 			} = this.props;
 			return React.createElement(OldComponent, {
@@ -98,7 +103,7 @@ export function withStore(OldComponent, dataType) {
 }
 
 export function withActions(OldComponent, dataType) {
-	const WrapComponent = ({ children, ...passThroughProps }) =>   // eslint-disable-line react/prop-types
+	const WrapComponent = ({ children, ...passThroughProps }) =>
 		// const { children, ...passThroughProps } = props;
 		React.createElement(
 			OldComponent,
@@ -110,6 +115,9 @@ export function withActions(OldComponent, dataType) {
 	// } { ...props
 	// }
 	// />;
+	WrapComponent.propTypes = {
+		children: PropTypes.node.isRequired,
+	}
 	return WrapComponent;
 }
 
