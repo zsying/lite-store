@@ -62,7 +62,7 @@ export function withStore(OldComponent, dataType) {
 	}
 	return class WrapComponent extends Component {
 		static propTypes = {
-			children: PropTypes.node.isRequired,
+			children: PropTypes.node,  // eslint-disable-line react/require-default-props
 		};
 
 		constructor(props) {
@@ -116,7 +116,7 @@ export function withActions(OldComponent, dataType) {
 	// }
 	// />;
 	WrapComponent.propTypes = {
-		children: PropTypes.node.isRequired,
+		children: PropTypes.node,  // eslint-disable-line react/require-default-props
 	}
 	return WrapComponent;
 }
