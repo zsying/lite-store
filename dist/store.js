@@ -182,4 +182,5 @@ var globalActions = {// [dataType]: {
 function registryService(dataType, dsfunc, actions) {if (globalDataset[dataType] !== undefined || globalActions[dataType] !== undefined || globalListeners[dataType] !== undefined) {throw new Error(dataType + ' had been register.');}globalDataset[dataType] = dsfunc;globalActions[dataType] = actions;globalListeners[dataType] = [];} // normally call in the actions when the ds has been changed.
 function pushChange(dataType) {globalListeners.pushChange(dataType);} // Be careful. this function will call action direction. 
 function callAction(dataType, method) {var _globalActions$dataTy2;for (var _len2 = arguments.length, param = Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {param[_key2 - 2] = arguments[_key2];}return (_globalActions$dataTy2 = globalActions[dataType])[method].apply(_globalActions$dataTy2, param);} // getDataset will return then ds by dataType, just for reading.
-function getDataset(dataType) {return globalDataset[dataType];}
+function getDataset(dataType) {return store.getData(dataType); // return globalDataset[dataType];
+}
