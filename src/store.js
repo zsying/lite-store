@@ -150,5 +150,6 @@ export function callAction(dataType, method, ...param) {
 
 // getDataset will return then ds by dataType, just for reading.
 export function getDataset(dataType) {
-	return globalDataset[dataType];
+	return store.getData(dataType)
+	// return globalDataset[dataType];
 }
