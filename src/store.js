@@ -75,9 +75,9 @@ export function withStore(OldComponent, dataType) {
 		componentWillMount() {
 			store.addListener(dataType, this.dsChang)
 		}
-		shouldComponentUpdate(nextProps, nextState) {
+		// shouldComponentUpdate(nextProps, nextState) {
 
-		}
+		// }
 		componentWillUnmount() {
 			store.removeListener(dataType, this.dsChang)
 		}
