@@ -3,6 +3,7 @@ export {
     withActions,
     registryService,
     pushChange,
-    callAction
+    callAction,
+    getDataset,
 }
 from './store';

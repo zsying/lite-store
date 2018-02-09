@@ -3,4 +3,5 @@
         withActions;} });Object.defineProperty(exports, 'registryService', { enumerable: true, get: function get() {return _store.
         registryService;} });Object.defineProperty(exports, 'pushChange', { enumerable: true, get: function get() {return _store.
         pushChange;} });Object.defineProperty(exports, 'callAction', { enumerable: true, get: function get() {return _store.
-        callAction;} });
+        callAction;} });Object.defineProperty(exports, 'getDataset', { enumerable: true, get: function get() {return _store.
+        getDataset;} });
