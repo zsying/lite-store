@@ -62,7 +62,7 @@ export function withStore(OldComponent, dataType) {
 	}
 	return class WrapComponent extends Component {
 		static propTypes = {
-			children: PropTypes.node,  // eslint-disable-line react/require-default-props
+			children: PropTypes.node, // eslint-disable-line react/require-default-props
 		};
 
 		constructor(props) {
@@ -74,6 +74,9 @@ export function withStore(OldComponent, dataType) {
 		}
 		componentWillMount() {
 			store.addListener(dataType, this.dsChang)
+		}
+		shouldComponentUpdate(nextProps, nextState) {
+
 		}
 		componentWillUnmount() {
 			store.removeListener(dataType, this.dsChang)
@@ -103,20 +106,21 @@ export function withStore(OldComponent, dataType) {
 }
 
 export function withActions(OldComponent, dataType) {
-	const WrapComponent = ({ children, ...passThroughProps }) =>
-		// const { children, ...passThroughProps } = props;
-		React.createElement(
-			OldComponent,
-			{ actions: store.getActions(dataType, ...passThroughProps) },
-			children
-		);	
+	const WrapComponent = ({
+			children,
+			...passThroughProps
+		}) => React.createElement(
+			OldComponent, {
+				actions: store.getActions(dataType),
+				...passThroughProps
+			}, children);
 	// 	<OldComponent actions={
 	// 	store.getActions(dataType)
 	// } { ...props
 	// }
 	// />;
 	WrapComponent.propTypes = {
-		children: PropTypes.node,  // eslint-disable-line react/require-default-props
+		children: PropTypes.node, // eslint-disable-line react/require-default-props
 	}
 	return WrapComponent;
 }
