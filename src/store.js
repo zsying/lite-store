@@ -148,7 +148,7 @@ export function callAction(dataType, method, ...param) {
 	return globalActions[dataType][method](...param);
 }
 
-
-// export function getData(dataType) {
-// 	return globalDataset[dataType];
-// }
+// getDataset will return then ds by dataType, just for reading.
+export function getDataset(dataType) {
+	return globalDataset[dataType];
+}
