@@ -44,7 +44,7 @@ const store = {
 		if (typeof o !== 'object') {
 			throw new Error(`cannot find ${dataType}'s actions`)			
 		}
-		return 0
+		return o
 	},
 
 	callAction: (dataType, method, ...param) =>
