@@ -31,9 +31,21 @@ const globalActions = {
 
 const store = {
 	// return 'dataType' store
-	getData: (dataType) => globalDataset[dataType](),
+	getData: (dataType) => {
+		const f = globalDataset[dataType]
+		if (typeof f !== 'function') {
+			throw new Error(`cannot find ${dataType}'s datasource`)
+		}
+		return f()
+	},
 
-	getActions: (dataType) => globalActions[dataType],
+	getActions: (dataType) => {
+		const o = globalActions[dataType]
+		if (typeof o !== 'object') {
+			throw new Error(`cannot find ${dataType}'s actions`)			
+		}
+		return 0
+	},
 
 	callAction: (dataType, method, ...param) =>
 		globalActions[dataType][method](...param),
